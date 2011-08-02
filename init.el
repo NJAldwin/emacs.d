@@ -1,5 +1,9 @@
 ;; Nick Aldwin
 
+;; Add load paths
+(add-to-list 'load-path "~/.emacs.d/color-theme/")
+(add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
+
 ;; Get machine name
 (defvar this-machine "default"
   "The hostname of this machine.")
@@ -15,6 +19,9 @@
 (if (equal system-type 'windows-nt)
     (custom-set-faces
      '(default ((t (:inherit nil :stipple nil :background "SystemWindow" :foreground "SystemWindowText" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Consolas"))))))
+
+;; Kill toolbar
+(tool-bar-mode -1)
 
 ;; Interactively do
 (ido-mode 'both)
@@ -32,6 +39,11 @@
 
 ;; Column number
 (column-number-mode t)
+
+;; Color theme
+(require 'color-theme)
+(require 'color-theme-solarized)
+(color-theme-solarized-dark)
 
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
