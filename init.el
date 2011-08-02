@@ -1,7 +1,8 @@
 ;; Nick Aldwin
 
 ;; Get machine name
-(defvar this-machine "default")
+(defvar this-machine "default"
+  "The hostname of this machine.")
 (if (getenv "HOST")
     (setq this-machine (getenv "HOST")))
 (if (string-match "default" this-machine)
@@ -28,3 +29,7 @@
 
 ;; Indent using spaces only
 (setq-default indent-tabs-mode nil)
+
+;; Go away, startup screen
+(setq inhibit-startup-echo-area-message t)
+(setq inhibit-startup-message t)
