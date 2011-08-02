@@ -1,6 +1,7 @@
 ;; Nick Aldwin
 
 ;; Add load paths
+(add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 
@@ -44,6 +45,11 @@
 (require 'color-theme)
 (require 'color-theme-solarized)
 (color-theme-solarized-dark)
+
+;; Smart Tab (from https://github.com/genehack/smart-tab )
+(require 'smart-tab)
+(global-smart-tab-mode 1)
+(setq smart-tab-using-hippie-expand t)
 
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
