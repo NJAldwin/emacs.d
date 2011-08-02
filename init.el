@@ -17,6 +17,8 @@
 
 ;; Interactively do
 (ido-mode 'both)
+;; Fuzzy Matching
+(setq ido-enable-flex-matching t)
 
 ;; Bar cursor
 (setq-default cursor-type 'bar)
