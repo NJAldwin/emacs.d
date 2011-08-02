@@ -51,6 +51,12 @@
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand t)
 
+;; Intelligent buffer renaming
+(require 'uniquify)
+(setq uniquify-after-kill-buffer-p t)
+(setq uniquify-ignore-buffers-re "^\\*") ; ignore special buffers
+(setq uniquify-buffer-name-style 'post-forward)
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
