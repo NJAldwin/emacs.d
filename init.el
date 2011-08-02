@@ -30,6 +30,9 @@
 ;; Indent using spaces only
 (setq-default indent-tabs-mode nil)
 
+;; Column number
+(column-number-mode t)
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
