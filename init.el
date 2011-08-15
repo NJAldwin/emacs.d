@@ -2,6 +2,7 @@
 
 ;; Add load paths
 (add-to-list 'load-path "~/.emacs.d/utils/")
+(add-to-list 'load-path "~/.emacs.d/modes/")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 
@@ -50,6 +51,11 @@
 (require 'smart-tab)
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand t)
+
+;; Markdown Mode
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist
+             (cons "\.m\(ar\)?k?d\(o?w?n\)?$" 'markdown-mode))
 
 ;; Intelligent buffer renaming
 (require 'uniquify)
