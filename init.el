@@ -1,5 +1,8 @@
 ;; Nick Aldwin
 
+;; Fix clipboard problems
+(setq x-select-enable-clipboard t)
+
 ;; Add load paths
 (add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/modes/")
