@@ -48,6 +48,7 @@
 ;; Color theme
 (require 'color-theme)
 (require 'color-theme-solarized)
+(setq-default solarized-termcolors 256)
 (color-theme-solarized-dark)
 
 ;; Smart Tab (from https://github.com/genehack/smart-tab )
