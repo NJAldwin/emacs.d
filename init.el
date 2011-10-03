@@ -67,6 +67,10 @@
 (setq uniquify-ignore-buffers-re "^\\*") ; ignore special buffers
 (setq uniquify-buffer-name-style 'post-forward)
 
+;; Cache passwords in Tramp
+(require 'tramp)
+(setq password-cache-expiry nil)
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
