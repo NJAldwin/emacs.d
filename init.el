@@ -71,6 +71,11 @@
 (require 'tramp)
 (setq password-cache-expiry nil)
 
+;; PuTTY fix. Ugly. Bad. But it works. (Good)
+;; from http://www.emacswiki.org/emacs/PuTTY
+(define-key global-map "\M-[1~" 'beginning-of-line) ; HOME
+(define-key global-map [select] 'end-of-line) ; END
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
