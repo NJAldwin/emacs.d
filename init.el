@@ -6,6 +6,7 @@
 ;; Add load paths
 (add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/modes/")
+(add-to-list 'load-path "~/.emacs.d/modes/coffee-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 
@@ -60,6 +61,9 @@
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist
              (cons "\.m\(ar\)?k?d\(o?w?n\)?$" 'markdown-mode))
+
+;; Coffee Mode
+(require 'coffee-mode)
 
 ;; Intelligent buffer renaming
 (require 'uniquify)
