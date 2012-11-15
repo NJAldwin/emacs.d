@@ -60,7 +60,7 @@
 ;; Markdown Mode
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist
-             (cons "\.m\(ar\)?k?d\(o?w?n\)?$" 'markdown-mode))
+             (cons "\\.m\\(ar\\)?k?d\\(\\o?w?n\\|te?xt\\)?\\'" 'markdown-mode))
 
 ;; Coffee Mode
 (require 'coffee-mode)
