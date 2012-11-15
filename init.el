@@ -10,6 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/markdown-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
+(add-to-list 'load-path "~/.emacs.d/deft/")
 
 ;; Get machine name
 (defvar this-machine "default"
@@ -75,6 +76,13 @@
 ;; Cache passwords in Tramp
 (require 'tramp)
 (setq password-cache-expiry nil)
+
+;; Deft
+(require 'deft)
+(setq
+ deft-extension "md"
+ deft-text-mode 'markdown-mode)
+(global-set-key (kbd "<f9>") 'deft)
 
 ;; PuTTY fix. Ugly. Bad. But it works. (Good)
 ;; from http://www.emacswiki.org/emacs/PuTTY
