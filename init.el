@@ -7,6 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/modes/")
 (add-to-list 'load-path "~/.emacs.d/modes/coffee-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/markdown-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 
