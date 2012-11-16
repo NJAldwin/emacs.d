@@ -8,6 +8,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/")
 (add-to-list 'load-path "~/.emacs.d/modes/coffee-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/markdown-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/json-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -66,6 +67,11 @@
 
 ;; Coffee Mode
 (require 'coffee-mode)
+
+;; JSON Mode
+(require 'json-mode)
+(add-to-list 'auto-mode-alist
+             (cons ".json" 'json-mode))
 
 ;; Intelligent buffer renaming
 (require 'uniquify)

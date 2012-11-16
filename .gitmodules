@@ -10,3 +10,6 @@
 [submodule "deft"]
 	path = deft
 	url = git://jblevins.org/git/deft.git
+[submodule "modes/json-mode"]
+	path = modes/json-mode
+	url = git://github.com/joshwnj/json-mode.git
