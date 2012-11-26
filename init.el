@@ -73,6 +73,11 @@
 (add-to-list 'auto-mode-alist
              (cons ".json" 'json-mode))
 
+;; Protobuf Mode
+(require 'protobuf-mode)
+(add-to-list 'auto-mode-alist
+             (cons ".proto" 'protobuf-mode))
+
 ;; Intelligent buffer renaming
 (require 'uniquify)
 (setq uniquify-after-kill-buffer-p t)
