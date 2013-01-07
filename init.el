@@ -95,6 +95,15 @@
  deft-text-mode 'markdown-mode)
 (global-set-key (kbd "<f9>") 'deft)
 
+;; Server
+(require 'server)
+(require 'server)
+(when (and (= emacs-major-version 23)
+           (equal window-system 'w32))
+  (defun server-ensure-safe-dir (dir) "Noop" t))
+(unless (server-running-p)
+  (server-start))
+
 ;; PuTTY fix. Ugly. Bad. But it works. (Good)
 ;; from http://www.emacswiki.org/emacs/PuTTY
 (define-key global-map "\M-[1~" 'beginning-of-line) ; HOME
