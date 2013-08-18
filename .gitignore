@@ -6,3 +6,5 @@
 .elc
 auto-save-list
 tramp
+eshell/history
+server/server
