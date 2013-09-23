@@ -13,3 +13,6 @@
 [submodule "modes/json-mode"]
 	path = modes/json-mode
 	url = git://github.com/joshwnj/json-mode.git
+[submodule "modes/web-mode"]
+	path = modes/web-mode
+	url = git@github.com:fxbois/web-mode.git
