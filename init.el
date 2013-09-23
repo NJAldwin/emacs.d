@@ -97,6 +97,10 @@
 )
 (add-hook 'web-mode-hook  'web-mode-hook)
 
+;; Word Count mode
+;; From http://www.emacswiki.org/emacs/WordCountMode
+(require 'wc-mode)
+
 ;; Intelligent buffer renaming
 (require 'uniquify)
 (setq uniquify-after-kill-buffer-p t)
