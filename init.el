@@ -100,6 +100,13 @@
 ;; Word Count mode
 ;; From http://www.emacswiki.org/emacs/WordCountMode
 (require 'wc-mode)
+;; wc-based word counting on demand (the above doesn't work for <24)
+(defun wc ()
+  (interactive)
+  (if (use-region-p)
+      (shell-command-on-region (point) (mark) "wc")
+    (shell-command-on-region (point-min) (point-max) "wc")))
+(global-set-key "\C-cw" 'wc)
 
 ;; Intelligent buffer renaming
 (require 'uniquify)
