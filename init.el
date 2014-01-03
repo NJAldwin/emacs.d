@@ -10,6 +10,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/markdown-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/json-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -96,6 +97,10 @@
   (setq web-mode-code-indent-offset 2)
 )
 (add-hook 'web-mode-hook  'web-mode-hook)
+
+;; YAML mode
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 
 ;; Word Count mode
 ;; From http://www.emacswiki.org/emacs/WordCountMode

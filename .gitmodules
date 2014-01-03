@@ -16,3 +16,6 @@
 [submodule "modes/web-mode"]
 	path = modes/web-mode
 	url = git@github.com:fxbois/web-mode.git
+[submodule "modes/yaml-mode"]
+	path = modes/yaml-mode
+	url = git@github.com:yoshiki/yaml-mode.git
