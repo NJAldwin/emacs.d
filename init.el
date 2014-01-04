@@ -11,6 +11,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/json-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -101,6 +102,11 @@
 ;; YAML mode
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+
+;; SCSS mode
+(require 'scss-mode)
+(setq scss-compile-at-save nil)
+(add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
 ;; Word Count mode
 ;; From http://www.emacswiki.org/emacs/WordCountMode
