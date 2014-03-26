@@ -22,3 +22,6 @@
 [submodule "modes/scss-mode"]
 	path = modes/scss-mode
 	url = git@github.com:antonj/scss-mode.git
+[submodule "modes/git-commit-mode"]
+	path = modes/git-commit-mode
+	url = git@github.com:rafl/git-commit-mode.git

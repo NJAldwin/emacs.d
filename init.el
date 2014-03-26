@@ -12,6 +12,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/git-commit-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -108,6 +109,15 @@
 (setq scss-compile-at-save nil)
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
+;; Git Commit mode
+(require 'git-commit)
+(setq auto-mode-alist
+      (append auto-mode-alist
+              '(("COMMIT_EDITMSG" . git-commit-mode)
+                ("NOTES_EDITMSG" . git-commit-mode)
+                ("MERGE_MSG" . git-commit-mode)
+                ("TAG_EDITMSG" . git-commit-mode))))
+
 ;; Word Count mode
 ;; From http://www.emacswiki.org/emacs/WordCountMode
 (require 'wc-mode)
@@ -144,6 +154,7 @@
   (defun server-ensure-safe-dir (dir) "Noop" t))
 (unless (server-running-p)
   (server-start))
+(add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
 ;; PuTTY fix. Ugly. Bad. But it works. (Good)
 ;; from http://www.emacswiki.org/emacs/PuTTY
