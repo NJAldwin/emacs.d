@@ -13,6 +13,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/git-commit-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/puppet-syntax-emacs")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -117,6 +118,11 @@
                 ("NOTES_EDITMSG" . git-commit-mode)
                 ("MERGE_MSG" . git-commit-mode)
                 ("TAG_EDITMSG" . git-commit-mode))))
+
+;; Puppet mode
+(require 'puppet-mode)
+(autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
 
 ;; Word Count mode
 ;; From http://www.emacswiki.org/emacs/WordCountMode

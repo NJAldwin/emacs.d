@@ -25,3 +25,6 @@
 [submodule "modes/git-commit-mode"]
 	path = modes/git-commit-mode
 	url = git@github.com:rafl/git-commit-mode.git
+[submodule "modes/puppet-syntax-emacs"]
+	path = modes/puppet-syntax-emacs
+	url = git@github.com:puppetlabs/puppet-syntax-emacs.git
