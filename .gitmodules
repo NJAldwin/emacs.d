@@ -22,9 +22,9 @@
 [submodule "modes/scss-mode"]
 	path = modes/scss-mode
 	url = git@github.com:antonj/scss-mode.git
-[submodule "modes/git-commit-mode"]
-	path = modes/git-commit-mode
-	url = git@github.com:rafl/git-commit-mode.git
 [submodule "modes/puppet-syntax-emacs"]
 	path = modes/puppet-syntax-emacs
 	url = git@github.com:puppetlabs/puppet-syntax-emacs.git
+[submodule "modes/git-modes"]
+	path = modes/git-modes
+	url = git@github.com:magit/git-modes.git

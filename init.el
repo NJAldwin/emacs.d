@@ -12,7 +12,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
-(add-to-list 'load-path "~/.emacs.d/modes/git-commit-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/git-modes")
 (add-to-list 'load-path "~/.emacs.d/modes/puppet-syntax-emacs")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
@@ -110,14 +110,12 @@
 (setq scss-compile-at-save nil)
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
 
-;; Git Commit mode
-(require 'git-commit)
-(setq auto-mode-alist
-      (append auto-mode-alist
-              '(("COMMIT_EDITMSG" . git-commit-mode)
-                ("NOTES_EDITMSG" . git-commit-mode)
-                ("MERGE_MSG" . git-commit-mode)
-                ("TAG_EDITMSG" . git-commit-mode))))
+;; Git modes
+(require 'git-commit-mode)
+(require 'git-rebase-mode)
+(require 'gitattributes-mode)
+(require 'gitconfig-mode)
+(require 'gitignore-mode)
 
 ;; Puppet mode
 (require 'puppet-mode)
