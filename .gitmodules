@@ -28,3 +28,6 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = git@github.com:magit/git-modes.git
+[submodule "libs/cl-lib"]
+	path = libs/cl-lib
+	url = git@github.com:emacsmirror/cl-lib.git

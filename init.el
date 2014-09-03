@@ -4,6 +4,8 @@
 (setq x-select-enable-clipboard t)
 
 ;; Add load paths
+(add-to-list 'load-path "~/.emacs.d/libs/")
+(add-to-list 'load-path "~/.emacs.d/libs/cl-lib")
 (add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/modes/")
 (add-to-list 'load-path "~/.emacs.d/modes/coffee-mode")
@@ -17,6 +19,9 @@
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
+
+;; Libs
+(require 'cl-lib)
 
 ;; Get machine name
 (defvar this-machine "default"
