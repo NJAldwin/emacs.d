@@ -39,6 +39,12 @@
     (custom-set-faces
      '(default ((t (:inherit nil :stipple nil :background "SystemWindow" :foreground "SystemWindowText" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width normal :foundry "outline" :family "Consolas"))))))
 
+;; Set font on OS X
+(when (and (eq system-type 'darwin)
+         (member "Source Code Pro" (font-family-list)))
+  (set-face-attribute 'default nil :family "Source Code Pro")
+  (set-face-attribute 'default nil :height 130))
+
 ;; Kill toolbar
 (tool-bar-mode -1)
 
