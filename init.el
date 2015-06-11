@@ -197,6 +197,14 @@
 (define-key global-map "\M-[1~" 'beginning-of-line) ; HOME
 (define-key global-map [select] 'end-of-line) ; END
 
+;; Scrolling
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
+(setq scroll-preserve-screen-position t)
+(global-set-key (kbd "<M-up>") 'scroll-down-line)
+(global-set-key (kbd "<M-down>") 'scroll-up-line)
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
