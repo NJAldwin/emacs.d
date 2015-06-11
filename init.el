@@ -183,6 +183,9 @@
   (server-start))
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
+;; Number lines in programming modes
+(add-hook 'prog-mode-hook 'linum-mode)
+
 ;; SQL
 (setq sql-product (quote mysql))
 (add-hook 'sql-interactive-mode-hook
