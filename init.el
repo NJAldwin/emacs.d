@@ -20,6 +20,10 @@
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
 
+;; Path for executables
+(if (eq system-type 'darwin)
+    (add-to-list 'exec-path "/usr/local/bin/"))
+
 ;; Libs
 (require 'cl-lib)
 
@@ -83,7 +87,7 @@
 
 ;; Coffee Mode
 (require 'coffee-mode)
-(custom-set-variables '(coffee-tab-width 2))
+(setq coffee-tab-width 2)
 
 ;; JSON Mode
 (require 'json-mode)
@@ -178,6 +182,12 @@
 (unless (server-running-p)
   (server-start))
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
+
+;; SQL
+(setq sql-product (quote mysql))
+(add-hook 'sql-interactive-mode-hook
+          (lambda ()
+            (toggle-truncate-lines t)))
 
 ;; PuTTY fix. Ugly. Bad. But it works. (Good)
 ;; from http://www.emacswiki.org/emacs/PuTTY
