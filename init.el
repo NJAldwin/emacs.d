@@ -120,7 +120,7 @@
 
 ;; YAML mode
 (require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.[a-z]?ya?ml$" . yaml-mode))
 
 ;; SCSS mode
 (require 'scss-mode)
