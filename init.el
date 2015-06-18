@@ -16,6 +16,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/git-modes")
 (add-to-list 'load-path "~/.emacs.d/modes/puppet-syntax-emacs")
+(add-to-list 'load-path "~/.emacs.d/modes/jade-mode")
 (add-to-list 'load-path "~/.emacs.d/color-theme/")
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized/")
 (add-to-list 'load-path "~/.emacs.d/deft/")
@@ -137,6 +138,11 @@
 (require 'puppet-mode)
 (autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
 (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+
+;; Jade mode
+(require 'sws-mode)
+(require 'jade-mode)
+(add-to-list 'auto-mode-alist '("\\.styl\\'" . sws-mode))
 
 ;; Ruby mode
 (require 'ruby-mode)
