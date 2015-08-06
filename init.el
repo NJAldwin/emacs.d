@@ -70,6 +70,11 @@
 ;; Column number
 (column-number-mode t)
 
+;; Desktop & Window
+(desktop-save-mode 1)
+(setq desktop-restore-eager 5)
+(winner-mode 1)
+
 ;; Color theme
 (require 'color-theme)
 (require 'color-theme-solarized)
