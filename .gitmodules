@@ -28,9 +28,6 @@
 [submodule "modes/git-modes"]
 	path = modes/git-modes
 	url = git@github.com:magit/git-modes.git
-[submodule "libs/cl-lib"]
-	path = libs/cl-lib
-	url = git@github.com:emacsmirror/cl-lib.git
 [submodule "modes/jade-mode"]
 	path = modes/jade-mode
 	url = git@github.com:brianc/jade-mode.git
