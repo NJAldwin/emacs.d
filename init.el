@@ -11,6 +11,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/markdown-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/json-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/js2-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/haml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
@@ -122,6 +123,14 @@
   (setq web-mode-code-indent-offset 2)
 )
 (add-hook 'web-mode-hook  'web-mode-hook)
+
+;; js2 mode
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-missing-semi-one-line-override t)
+(setq js2-mode-show-strict-warnings nil)
+(setq js2-strict-missing-semi-warning nil)
+(setq js2-strict-trailing-comma-warning nil)
 
 ;; YAML mode
 (require 'yaml-mode)

@@ -37,3 +37,6 @@
 [submodule "modes/haml-mode"]
 	path = modes/haml-mode
 	url = git@github.com:nex3/haml-mode.git
+[submodule "modes/js2-mode"]
+	path = modes/js2-mode
+	url = git@github.com:mooz/js2-mode.git
