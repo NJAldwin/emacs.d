@@ -31,3 +31,9 @@
 [submodule "modes/jade-mode"]
 	path = modes/jade-mode
 	url = git@github.com:brianc/jade-mode.git
+[submodule "modes/sass-mode"]
+	path = modes/sass-mode
+	url = git@github.com:nex3/sass-mode.git
+[submodule "modes/haml-mode"]
+	path = modes/haml-mode
+	url = git@github.com:nex3/haml-mode.git

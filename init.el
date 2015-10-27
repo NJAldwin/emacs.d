@@ -12,7 +12,9 @@
 (add-to-list 'load-path "~/.emacs.d/modes/json-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/web-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/yaml-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/haml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/sass-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/git-modes")
 (add-to-list 'load-path "~/.emacs.d/modes/puppet-syntax-emacs")
 (add-to-list 'load-path "~/.emacs.d/modes/jade-mode")
@@ -129,6 +131,11 @@
 (require 'scss-mode)
 (setq scss-compile-at-save nil)
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+
+;; SASS mode
+(require 'haml-mode)
+(require 'sass-mode)
+(add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
 
 ;; Git modes
 (require 'git-commit-mode)
