@@ -40,3 +40,6 @@
 [submodule "modes/js2-mode"]
 	path = modes/js2-mode
 	url = git@github.com:mooz/js2-mode.git
+[submodule "modes/rust-mode"]
+	path = modes/rust-mode
+	url = git@github.com:rust-lang/rust-mode.git
