@@ -17,6 +17,7 @@
 (add-to-list 'load-path "~/.emacs.d/modes/scss-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/sass-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/rust-mode")
+(add-to-list 'load-path "~/.emacs.d/modes/toml-mode")
 (add-to-list 'load-path "~/.emacs.d/modes/git-modes")
 (add-to-list 'load-path "~/.emacs.d/modes/puppet-syntax-emacs")
 (add-to-list 'load-path "~/.emacs.d/modes/jade-mode")
@@ -151,6 +152,9 @@
 (require 'rust-mode)
 (autoload 'rust-mode "rust-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+;; toml mode
+(require 'toml-mode)
 
 ;; Git modes
 (require 'git-commit-mode)
