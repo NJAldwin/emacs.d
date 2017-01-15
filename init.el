@@ -100,6 +100,7 @@
 
 ;; JSON Mode
 (require 'json-mode)
+(setq js-indent-level 2)
 (add-to-list 'auto-mode-alist
              (cons ".json" 'json-mode))
 
