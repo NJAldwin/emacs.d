@@ -240,6 +240,19 @@
 (global-set-key (kbd "<M-up>") 'scroll-down-line)
 (global-set-key (kbd "<M-down>") 'scroll-up-line)
 
+;; macOS bindings
+(defun use-keyboard ()
+  (interactive)
+  (setq mac-option-modifier 'super)
+  (setq mac-command-modifier 'meta))
+(defun use-laptop ()
+  (interactive)
+  (setq mac-option-modifier 'meta)
+  (setq mac-command-modifier 'super))
+(when (eq system-type 'darwin)
+  (use-keyboard)
+  (global-set-key [kp-delete] 'delete-char))
+
 ;; Go away, startup screen
 (setq inhibit-startup-echo-area-message t)
 (setq inhibit-startup-message t)
