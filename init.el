@@ -89,10 +89,26 @@
 (global-smart-tab-mode 1)
 (setq smart-tab-using-hippie-expand t)
 
+;; Flyspell
+(require 'flyspell)
+(global-set-key [M-down-mouse-1] 'flyspell-correct-word)
+(defun turn-on-flyspell-lazy ()
+  "Enable flyspell and lazily flyspell the whole buffer on idle"
+  (turn-on-flyspell)
+  (run-with-idle-timer 5
+                       nil
+                       (lambda (buffer)
+                         (if (buffer-live-p (get-buffer buffer))
+                             (with-current-buffer buffer
+                               (flyspell-buffer))))
+                       (current-buffer)))
+
 ;; Markdown Mode
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist
-             (cons "\\.m\\(ar\\)?k?d\\(\\o?w?n\\|te?xt\\)?\\'" 'markdown-mode))
+             (cons "\\.m\\(ar\\)?k?d\\(\\o?w?n\\|te?xt\\)?\\'" 'gfm-mode))
+(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+(add-hook 'markdown-mode-hook 'turn-on-flyspell-lazy)
 
 ;; Coffee Mode
 (require 'coffee-mode)
@@ -205,8 +221,10 @@
 ;; Deft
 (require 'deft)
 (setq
- deft-extension "md"
- deft-text-mode 'markdown-mode)
+ deft-default-extension "md"
+ deft-recursive t
+ deft-markdown-mode-title-level 1
+ deft-new-file-format "%FT%T%z")
 (global-set-key (kbd "<f9>") 'deft)
 
 ;; Server

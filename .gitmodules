@@ -6,10 +6,10 @@
 	url = git://github.com/defunkt/coffee-mode.git
 [submodule "modes/markdown-mode"]
 	path = modes/markdown-mode
-	url = git://jblevins.org/git/markdown-mode.git
+	url = git@github.com:jrblevin/markdown-mode.git
 [submodule "deft"]
 	path = deft
-	url = git://jblevins.org/git/deft.git
+	url = git@github.com:jrblevin/deft.git
 [submodule "modes/json-mode"]
 	path = modes/json-mode
 	url = git://github.com/joshwnj/json-mode.git
