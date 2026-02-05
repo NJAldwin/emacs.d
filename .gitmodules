@@ -46,3 +46,6 @@
 [submodule "modes/toml-mode"]
 	path = modes/toml-mode
 	url = git@github.com:dryman/toml-mode.el.git
+[submodule "solarized-emacs"]
+	path = solarized-emacs
+	url = https://github.com/bbatsov/solarized-emacs.git

@@ -1,10 +1,44 @@
 ;; Nick Aldwin
 
 ;; Fix clipboard problems
-(setq x-select-enable-clipboard t)
+;; ** CHANGED FOR EMACS 30: START **
+;; x-select-enable-clipboard was renamed to select-enable-clipboard in Emacs 25.1
+(set (if (boundp 'select-enable-clipboard)
+         'select-enable-clipboard
+       'x-select-enable-clipboard) t)
+;; ** CHANGED FOR EMACS 30: END **
 
-;; Add load paths
-(add-to-list 'load-path "~/.emacs.d/libs/")
+;; ** CHANGED FOR EMACS 30: START **
+;; Flymake legacy variable compatibility.
+;; Some older third-party Flymake integrations expect `flymake-allowed-file-name-masks`
+;; to exist. In Emacs 30, the legacy proc backend uses `flymake-proc-allowed-file-name-masks`.
+(require 'flymake nil t)
+(require 'flymake-proc nil t)
+(when (and (not (boundp 'flymake-allowed-file-name-masks))
+           (boundp 'flymake-proc-allowed-file-name-masks))
+  (defvaralias 'flymake-allowed-file-name-masks
+    'flymake-proc-allowed-file-name-masks))
+(unless (boundp 'flymake-allowed-file-name-masks)
+  (defvar flymake-allowed-file-name-masks nil))
+;; ** CHANGED FOR EMACS 30: END **
+
+;; ** CHANGED FOR EMACS 30: START **
+;; Shims for old cl functions used by vendored packages.
+;; In Emacs 27+, cl was deprecated in favor of cl-lib.  These aliases let old
+;; packages that use (require 'cl) continue to work without modification.
+;; TODO @NJA: Upgrade vendored packages and remove these shims.
+(require 'cl-lib)
+(dolist (fn '(rotatef case block return-from loop destructuring-bind))
+  (let ((cl-fn (intern (concat "cl-" (symbol-name fn)))))
+    (when (and (fboundp cl-fn) (not (fboundp fn)))
+      (defalias fn cl-fn))))
+;; ** CHANGED FOR EMACS 30: END **
+
+;; Add load paths (only if directory exists)
+;; ** CHANGED FOR EMACS 30: START **
+(when (file-directory-p "~/.emacs.d/libs/")
+  (add-to-list 'load-path "~/.emacs.d/libs/"))
+;; ** CHANGED FOR EMACS 30: END **
 (add-to-list 'load-path "~/.emacs.d/utils/")
 (add-to-list 'load-path "~/.emacs.d/modes/")
 (add-to-list 'load-path "~/.emacs.d/modes/coffee-mode")
@@ -77,12 +111,66 @@
 (winner-mode 1)
 
 ;; Color theme
-(require 'color-theme)
-(require 'color-theme-solarized)
-(setq-default solarized-termcolors 256)
-(if (not window-system)
-    (setq-default solarized-degrade t))
-(color-theme-solarized)
+;; ** CHANGED FOR EMACS 30: START **
+;; Use modern solarized-emacs (with selenized) on Emacs 24+, fall back to old color-theme.
+;; Provides `use-theme-dark` and `use-theme-light` to switch variants interactively.
+;; TODO @NJA: Once old Emacs support is dropped, remove color-theme fallback.
+(defvar nja-theme-variant 'dark
+  "Current theme variant: 'dark or 'light.")
+
+(defvar nja-use-modern-theme
+  (and (>= emacs-major-version 24)
+       (file-directory-p "~/.emacs.d/solarized-emacs/"))
+  "Non-nil if using modern solarized-emacs theme.")
+
+(when nja-use-modern-theme
+  (add-to-list 'load-path "~/.emacs.d/solarized-emacs/")
+  (add-to-list 'custom-theme-load-path "~/.emacs.d/solarized-emacs/"))
+
+(defun use-theme-dark ()
+  "Switch to dark theme variant (selenized-dark or solarized dark)."
+  (interactive)
+  (setq nja-theme-variant 'dark)
+  (if nja-use-modern-theme
+      (progn
+        (mapc #'disable-theme custom-enabled-themes)
+        (load-theme 'solarized-selenized-dark t))
+    (progn
+      (set-frame-parameter nil 'background-mode 'dark)
+      (set-terminal-parameter nil 'background-mode 'dark)
+      (enable-theme 'solarized))))
+
+(defun use-theme-light ()
+  "Switch to light theme variant (selenized-light or solarized light)."
+  (interactive)
+  (setq nja-theme-variant 'light)
+  (if nja-use-modern-theme
+      (progn
+        (mapc #'disable-theme custom-enabled-themes)
+        (load-theme 'solarized-selenized-light t))
+    (progn
+      (set-frame-parameter nil 'background-mode 'light)
+      (set-terminal-parameter nil 'background-mode 'light)
+      (enable-theme 'solarized))))
+
+(defun use-theme-toggle ()
+  "Toggle between dark and light theme variants."
+  (interactive)
+  (if (eq nja-theme-variant 'dark)
+      (use-theme-light)
+    (use-theme-dark)))
+
+;; Initialize theme
+(if nja-use-modern-theme
+    (load-theme 'solarized-selenized-dark t)
+  (progn
+    (require 'color-theme)
+    (require 'color-theme-solarized)
+    (setq-default solarized-termcolors 256)
+    (when (not window-system)
+      (setq-default solarized-degrade t))
+    (color-theme-solarized)))
+;; ** CHANGED FOR EMACS 30: END **
 
 ;; Smart Tab (from https://github.com/genehack/smart-tab )
 (require 'smart-tab)
@@ -92,19 +180,51 @@
 ;; Flyspell
 (require 'flyspell)
 (global-set-key [M-down-mouse-1] 'flyspell-correct-word)
+;; ** CHANGED FOR EMACS 30: START **
+;; Only enable flyspell when buffer is actually selected and idle, not during
+;; desktop restore.  This prevents thundering herd of aspell processes.
+;; Uses a single repeating idle timer that only processes current buffer.
+(defvar nja-flyspell-pending-buffers nil
+  "Buffers waiting for flyspell to be enabled.")
+
+(defvar nja-flyspell-idle-timer nil
+  "Idle timer for enabling flyspell.")
+
+(defun nja-flyspell-maybe-enable ()
+  "Enable flyspell in current buffer if it's pending.  Only runs when idle."
+  (let ((buf (current-buffer)))
+    (when (and (memq buf nja-flyspell-pending-buffers)
+               (buffer-live-p buf)
+               (executable-find "aspell"))
+      (setq nja-flyspell-pending-buffers (delq buf nja-flyspell-pending-buffers))
+      (flyspell-mode 1)
+      (flyspell-buffer))
+    ;; Cancel timer if no more pending buffers
+    (when (and (null nja-flyspell-pending-buffers) nja-flyspell-idle-timer)
+      (cancel-timer nja-flyspell-idle-timer)
+      (setq nja-flyspell-idle-timer nil))))
+
 (defun turn-on-flyspell-lazy ()
-  "Enable flyspell and lazily flyspell the whole buffer on idle"
-  (turn-on-flyspell)
-  (run-with-idle-timer 5
-                       nil
-                       (lambda (buffer)
-                         (if (buffer-live-p (get-buffer buffer))
-                             (with-current-buffer buffer
-                               (flyspell-buffer))))
-                       (current-buffer)))
+  "Mark buffer for flyspell, enable when buffer is viewed and idle."
+  (let ((buf (current-buffer)))
+    (unless (memq buf nja-flyspell-pending-buffers)
+      (push buf nja-flyspell-pending-buffers))
+    ;; Start the idle timer if not running (single timer handles all buffers)
+    (unless nja-flyspell-idle-timer
+      (setq nja-flyspell-idle-timer
+            (run-with-idle-timer 2 t #'nja-flyspell-maybe-enable)))))
+;; ** CHANGED FOR EMACS 30: END **
 
 ;; Markdown Mode
 (require 'markdown-mode)
+;; ** CHANGED FOR EMACS 30: START **
+;; Old markdown-mode doesn't define header-face-7; define it to stop warnings.
+;; TODO @NJA: Upgrade to newer markdown-mode and remove this workaround.
+(unless (facep 'markdown-header-face-7)
+  (defface markdown-header-face-7
+    '((t (:inherit markdown-header-face)))
+    "Face for level-7 markdown headers."))
+;; ** CHANGED FOR EMACS 30: END **
 (add-to-list 'auto-mode-alist
              (cons "\\.m\\(ar\\)?k?d\\(\\o?w?n\\|te?xt\\)?\\'" 'gfm-mode))
 ;(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
@@ -174,11 +294,21 @@
 (require 'toml-mode)
 
 ;; Git modes
-(require 'git-commit-mode)
-(require 'git-rebase-mode)
-(require 'gitattributes-mode)
-(require 'gitconfig-mode)
-(require 'gitignore-mode)
+;; ** CHANGED FOR EMACS 30: START **
+;; These modes are now built-in (Emacs 25+) or provided by magit.
+;; Only load vendored versions if the features aren't already available.
+;; TODO @NJA: Remove vendored git-modes; rely on built-ins or magit.
+(unless (featurep 'git-commit)
+  (require 'git-commit-mode nil t))
+(unless (featurep 'git-rebase)
+  (require 'git-rebase-mode nil t))
+(unless (featurep 'gitattributes-mode)
+  (require 'gitattributes-mode nil t))
+(unless (featurep 'gitconfig-mode)
+  (require 'gitconfig-mode nil t))
+(unless (featurep 'gitignore-mode)
+  (require 'gitignore-mode nil t))
+;; ** CHANGED FOR EMACS 30: END **
 
 ;; Puppet mode
 (require 'puppet-mode)
@@ -238,7 +368,13 @@
 (add-hook 'server-done-hook (lambda nil (kill-buffer nil)))
 
 ;; Number lines in programming modes
-(add-hook 'prog-mode-hook 'linum-mode)
+;; ** CHANGED FOR EMACS 30: START **
+;; linum-mode was removed in Emacs 30; use display-line-numbers-mode (Emacs 26+)
+(if (fboundp 'display-line-numbers-mode)
+    (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (when (fboundp 'linum-mode)
+    (add-hook 'prog-mode-hook 'linum-mode)))
+;; ** CHANGED FOR EMACS 30: END **
 
 ;; SQL
 (setq sql-product (quote mysql))
