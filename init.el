@@ -107,7 +107,7 @@
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist
              (cons "\\.m\\(ar\\)?k?d\\(\\o?w?n\\|te?xt\\)?\\'" 'gfm-mode))
-(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
+;(add-hook 'markdown-mode-hook 'turn-on-auto-fill)
 (add-hook 'markdown-mode-hook 'turn-on-flyspell-lazy)
 
 ;; Coffee Mode
@@ -269,7 +269,7 @@
   (setq mac-option-modifier 'meta)
   (setq mac-command-modifier 'super))
 (when (eq system-type 'darwin)
-  (use-keyboard)
+  (use-laptop)
   (global-set-key [kp-delete] 'delete-char))
 
 ;; Go away, startup screen
